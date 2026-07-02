@@ -7,12 +7,12 @@ export const heroConversation: ScriptMessage[] = [
   { from: "user", text: "Remember that my interview is Friday." },
   {
     from: "milo",
-    text: "Absolutely. I'll remind you Thursday evening and check in Friday morning. You've got this.",
+    text: "Got it — Friday's interview is locked in. I'll check in Thursday night so you can prep, then again Friday morning.",
   },
-  { from: "user", text: "Remember that I hate mushrooms." },
+  { from: "user", text: "It's for the product design role." },
   {
     from: "milo",
-    text: "Got it. I'll remember that for future restaurant recommendations.",
+    text: "Noted. I'll remind you to pull your portfolio highlights together beforehand — design interviews love a good case study.",
   },
 ];
 
@@ -33,7 +33,7 @@ export const scrollScenes: ScrollScene[] = [
       { from: "user", text: "Help me plan my weekend." },
       {
         from: "milo",
-        text: "Let's do it. Saturday morning: hike. Saturday night: dinner with Sam. Sunday: rest. Sound good?",
+        text: "You mentioned wanting to unplug this week, so let's keep it light: Saturday morning hike, dinner with Sam that night, and Sunday completely free to recharge. Sound good?",
       },
     ],
   },
@@ -46,7 +46,7 @@ export const scrollScenes: ScrollScene[] = [
       { from: "user", text: "Remember my favorite coffee order." },
       {
         from: "milo",
-        text: "Saved — oat milk cortado, extra hot. I'll remember for next time.",
+        text: "Saved: oat milk cortado, extra hot, no sugar. Next time you're deciding where to grab coffee, I'll point you toward places that actually get it right.",
       },
     ],
   },
@@ -59,7 +59,7 @@ export const scrollScenes: ScrollScene[] = [
       { from: "user", text: "Did I finish my workout today?" },
       {
         from: "milo",
-        text: "Not yet — you logged leg day for 6pm. Want a nudge in an hour?",
+        text: "Not yet — leg day's on your calendar for 6pm. You're on a 4-day streak, want a nudge an hour before so you don't lose it?",
       },
     ],
   },
@@ -72,7 +72,7 @@ export const scrollScenes: ScrollScene[] = [
       { from: "user", text: "I'm feeling overwhelmed." },
       {
         from: "milo",
-        text: "I'm here. Let's slow things down together. What's one small thing we can do in the next ten minutes?",
+        text: "I'm right here with you. Let's slow this down — forget the whole list for a second. What's the one thing weighing on you most right now?",
       },
     ],
   },
@@ -86,26 +86,30 @@ export interface SuggestedPrompt {
 export const suggestedPrompts: SuggestedPrompt[] = [
   {
     prompt: "Help me plan tomorrow.",
-    reply: "Let's map it out. What's the first thing on your mind for tomorrow?",
+    reply:
+      "Let's map it out together. Any must-do's for tomorrow, or should I start from your usual morning routine and build around that?",
   },
   {
     prompt: "Remember that I love sushi.",
-    reply: "Got it — sushi's a favorite. I'll keep that in mind for recommendations.",
+    reply:
+      "Got it — sushi's a favorite. Next time you're picking a spot for dinner or we're celebrating something, I'll have that in mind.",
   },
   {
     prompt: "Rewrite this email.",
-    reply: "Paste it in and I'll make it clearer, and more you.",
+    reply:
+      "Paste it in and I'll tighten it up — clearer and more confident, but it'll still sound like you.",
   },
   {
     prompt: "Remind me to drink more water.",
-    reply: "Done. I'll check in every few hours starting now.",
+    reply:
+      "Done — I'll nudge you every couple hours starting now. Want me to ease off after 6pm so it doesn't wreck your sleep?",
   },
   {
     prompt: "I'm feeling stressed.",
     reply:
-      "I hear you. Let's take one breath together — in for four, out for four. What's weighing on you most?",
+      "I hear you. Let's take one breath together — in for four, out for four. What's weighing on you most right now?",
   },
 ];
 
 export const defaultReply =
-  "I'm here for that. (This is a preview — the real Milo will text you back for real.)";
+  "I'm here for that — once Milo's live, I'll actually text you back for real. For now, try one of the prompts below and see how it feels.";

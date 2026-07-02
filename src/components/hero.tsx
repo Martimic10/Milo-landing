@@ -75,7 +75,7 @@ export function Hero() {
             href="#waitlist"
             className="w-full sm:w-auto text-center px-7 py-3.5 rounded-full bg-blue text-white text-[15px] font-medium hover:bg-blue-dim transition-colors shadow-[0_8px_24px_-8px_rgba(37,99,235,0.6)]"
           >
-            Get Early Access
+            Join the Waitlist
           </a>
           <a
             href="#how-it-works"
@@ -93,7 +93,7 @@ export function Hero() {
         className="relative mt-20 sm:mt-24"
       >
         <div className="animate-float-slow" style={{ ["--tilt" as string]: "0deg" }}>
-          <PhoneFrame>
+          <PhoneFrame className="w-80 sm:w-95">
             <ConversationThread script={heroConversation} loop />
           </PhoneFrame>
         </div>

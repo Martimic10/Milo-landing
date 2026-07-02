@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUp } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+import { ArrowUp, Plus } from "lucide-react";
 import { PhoneFrame } from "./imessage/phone-frame";
 import { MessageBubble } from "./imessage/message-bubble";
 import { TypingIndicator } from "./imessage/typing-indicator";
+import { DateDivider } from "./imessage/date-divider";
 import { suggestedPrompts, defaultReply } from "@/lib/conversations";
 import type { ScriptMessage } from "@/lib/conversations";
+import { cn } from "@/lib/utils";
 
 function findReply(prompt: string): string {
   const match = suggestedPrompts.find(
@@ -57,53 +59,62 @@ export function InteractiveDemo() {
         </div>
 
         <div className="flex flex-col items-center">
-          <PhoneFrame>
-            <div className="flex flex-col h-full">
-              <div
-                ref={scrollRef}
-                className="flex-1 overflow-y-auto no-scrollbar flex flex-col justify-end pb-2"
-              >
-                {messages.length === 0 && !typing && (
-                  <div className="flex-1 flex items-center justify-center px-4 text-center">
-                    <p className="text-[13px] text-muted">
-                      Send Milo a message below to see how it feels.
-                    </p>
-                  </div>
-                )}
-                <AnimatePresence initial={false}>
-                  {messages.map((msg, i) => (
-                    <MessageBubble
-                      key={i}
-                      from={msg.from}
-                      text={msg.text}
-                    />
-                  ))}
-                  {typing && <TypingIndicator key="typing" />}
-                </AnimatePresence>
-              </div>
-
+          <PhoneFrame
+            footer={
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   send(input);
                 }}
-                className="flex items-center gap-2 pt-2 border-t border-black/5"
+                className="flex items-center gap-1.5"
               >
+                <div className="h-7 w-7 rounded-full bg-[#e9e9eb] flex items-center justify-center shrink-0">
+                  <Plus size={15} className="text-black/40" />
+                </div>
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Text Message"
-                  className="flex-1 min-w-0 rounded-full bg-[#e9e9eb] px-3.5 py-2 text-[13px] text-black placeholder:text-black/40 outline-none"
+                  placeholder="iMessage"
+                  className="flex-1 min-w-0 rounded-full bg-[#e9e9eb] px-3.5 py-1.5 text-[13px] text-black placeholder:text-black/40 outline-none"
                 />
                 <button
                   type="submit"
                   aria-label="Send"
                   disabled={!input.trim() || typing}
-                  className="h-7 w-7 shrink-0 rounded-full bg-blue text-white flex items-center justify-center disabled:opacity-30 transition-opacity"
+                  className={cn(
+                    "h-7 w-7 shrink-0 rounded-full flex items-center justify-center transition-colors",
+                    input.trim() && !typing
+                      ? "bg-blue text-white"
+                      : "bg-[#e9e9eb] text-black/25"
+                  )}
                 >
-                  <ArrowUp size={15} strokeWidth={2.5} />
+                  <ArrowUp size={14} strokeWidth={2.5} />
                 </button>
               </form>
+            }
+          >
+            <div
+              ref={scrollRef}
+              className="flex flex-col justify-end h-full overflow-y-auto no-scrollbar pb-2"
+            >
+              {messages.length === 0 && !typing && (
+                <div className="flex-1 flex items-center justify-center px-4 text-center">
+                  <p className="text-[13px] text-muted">
+                    Send Milo a message below to see how it feels.
+                  </p>
+                </div>
+              )}
+              <AnimatePresence initial={false}>
+                {messages.length > 0 && <DateDivider key="date" />}
+                {messages.map((msg, i) => (
+                  <MessageBubble
+                    key={i}
+                    from={msg.from}
+                    text={msg.text}
+                  />
+                ))}
+                {typing && <TypingIndicator key="typing" />}
+              </AnimatePresence>
             </div>
           </PhoneFrame>
 

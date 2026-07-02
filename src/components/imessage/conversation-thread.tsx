@@ -3,6 +3,7 @@
 import { AnimatePresence } from "framer-motion";
 import { MessageBubble } from "./message-bubble";
 import { TypingIndicator } from "./typing-indicator";
+import { DateDivider } from "./date-divider";
 import { useConversationPlayer } from "@/lib/use-conversation-player";
 import type { ScriptMessage } from "@/lib/conversations";
 
@@ -25,6 +26,7 @@ export function ConversationThread({
   return (
     <div className="flex flex-col justify-end h-full">
       <AnimatePresence mode="popLayout" initial={false}>
+        {visible.length > 0 && <DateDivider key="date" />}
         {visible.map((msg, i) => (
           <MessageBubble
             key={`${msg.from}-${i}-${msg.text.slice(0, 8)}`}

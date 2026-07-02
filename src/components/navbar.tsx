@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/#how-it-works", label: "How It Works" },
-  { href: "/pricing", label: "Pricing" },
   { href: "/#faq", label: "FAQ" },
 ];
 
@@ -27,7 +27,7 @@ export function Navbar({ solid = false }: { solid?: boolean }) {
     <header
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-500",
-        light || open
+        light
           ? "bg-background/90 backdrop-blur-xl border-b border-line/70"
           : "bg-transparent border-b border-transparent"
       )}
@@ -37,7 +37,7 @@ export function Navbar({ solid = false }: { solid?: boolean }) {
           href="/"
           className={cn(
             "text-[19px] font-semibold tracking-tight transition-colors duration-500",
-            light || open ? "text-ink" : "text-white"
+            light ? "text-ink" : "text-white"
           )}
         >
           Milo
@@ -67,56 +67,49 @@ export function Navbar({ solid = false }: { solid?: boolean }) {
                 : "bg-white text-ink hover:bg-blue hover:text-white"
             )}
           >
-            Get Early Access
+            Join Waitlist
           </a>
         </nav>
 
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden relative h-9 w-9 flex flex-col items-center justify-center gap-[5px]"
+          className={cn(
+            "md:hidden h-10 w-10 rounded-full border flex items-center justify-center transition-colors duration-500",
+            light
+              ? "border-line text-ink"
+              : "border-white/40 text-white"
+          )}
         >
-          <motion.span
-            animate={open ? { rotate: 45, y: 4 } : { rotate: 0, y: 0 }}
-            className={cn(
-              "h-[1.5px] w-5 block origin-center transition-colors duration-500",
-              light || open ? "bg-ink" : "bg-white"
-            )}
-          />
-          <motion.span
-            animate={open ? { rotate: -45, y: -4 } : { rotate: 0, y: 0 }}
-            className={cn(
-              "h-[1.5px] w-5 block origin-center transition-colors duration-500",
-              light || open ? "bg-ink" : "bg-white"
-            )}
-          />
+          {open ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden bg-background/90 backdrop-blur-xl border-b border-line/70"
+            initial={{ opacity: 0, y: -12, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.97 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden fixed top-19 inset-x-4 z-40 rounded-3xl border border-line bg-background shadow-2xl overflow-hidden origin-top"
           >
-            <nav className="flex flex-col px-6 py-6 gap-5">
+            <nav className="flex flex-col px-6 py-6">
               {links.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-[17px] text-ink"
+                  className="py-4 text-xl text-ink"
                 >
                   {link.label}
                 </a>
               ))}
+              <div className="my-2 border-t border-line" />
               <a
                 href="/#waitlist"
                 onClick={() => setOpen(false)}
-                className="mt-2 text-center text-[15px] font-medium px-4 py-3 rounded-full bg-ink text-white"
+                className="mt-4 text-center text-[15px] font-medium px-5 py-4 rounded-full bg-ink text-white"
               >
                 Get Early Access
               </a>
